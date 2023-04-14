@@ -1,0 +1,275 @@
+<!--
+    Simple static Telegram WebApp. Does not verify the WebAppInitData, as a bot token would be needed for that.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>python-telegram-bot MrDegen</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<script type="text/javascript">
+    Telegram.WebApp.ready();
+    Telegram.WebApp.MainButton.setText('Save').show().onClick(function() {
+
+        const exchangelist = []
+
+        if (document.getElementById("kucoin").checked) {
+            exchangelist.push("kucoin")
+        }
+        if (document.getElementById("mexc").checked) {
+            exchangelist.push("mexc")
+        }
+        if (document.getElementById("gateio").checked) {
+            exchangelist.push("gateio")
+        }
+
+        var u_percent = document.getElementById("percent").value;
+        var u_timeframe = document.getElementById("timeframe").value;
+        var u_volume = document.getElementById("volume").value;
+        const data = JSON.stringify({
+            exchanges: exchangelist,
+            percent: u_percent,
+            timeframe: u_timeframe,
+            volume: u_volume
+        });
+        Telegram.WebApp.sendData(data);
+        Telegram.WebApp.close();
+    });
+</script>
+
+<body style="background-color: #01081e">
+    <div class="formbold-main-wrapper">
+        <div class="formbold-form-wrapper">
+            <div class="formbold-input-radio-wrapper">
+                <label class="formbold-form-label">
+          Which exchanges do you use?
+        </label>
+
+                <div class="formbold-radio-flex">
+                    <div class="formbold-radio-group">
+                        <label class="formbold-radio-label" for="kucoin">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="kucoin"
+                id="kucoin"
+              />
+              Kucoin
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+                    </div>
+
+                    <div class="formbold-radio-group">
+                        <label class="formbold-radio-label" for="mexc">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="mexc"
+                id="mexc"
+              />
+              Mexc
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+                    </div>
+
+                    <div class="formbold-radio-group">
+                        <label class="formbold-radio-label" for="gateio">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="gateio"
+                id="gateio"
+              />
+              Gateio
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="formbold-input-group">
+                <label for="percent" class="formbold-form-label"> Minimum Pump Size (%) </label>
+                <input type="number" name="percent" id="percent" placeholder="Between 2-100" class="formbold-form-input" min="2" max="100" />
+            </div>
+
+            <div class="formbold-input-group">
+                <label for="timeframe" class="formbold-form-label"> Maximum Pump Time (Minutes) </label>
+                <input type="number" name="timeframe" id="timeframe" placeholder="Between 1-60" class="formbold-form-input" min="1" max="60" />
+            </div>
+
+            <div class="formbold-input-group">
+                <label for="volume" class="formbold-form-label"> Minimum Daily Volume ($) </label>
+                <input type="number" name="volume" id="volume" placeholder="0 for none" class="formbold-form-input" min="0" />
+            </div>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    Telegram.WebApp.expand();
+</script>
+
+</html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .formbold-main-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .formbold-form-wrapper {
+        margin: 0 auto;
+        max-width: 570px;
+        width: 100%;
+        background: #01081e;
+        padding: 20px;
+    }
+
+    .formbold-form-img {
+        margin-bottom: 45px;
+    }
+
+    .formbold-input-group {
+        margin-bottom: 18px;
+    }
+
+    .formbold-form-select {
+        width: 100%;
+        padding: 12px 22px;
+        border-radius: 5px;
+        border: 1px solid #dde3ec;
+        background: #ffffff;
+        font-size: 16px;
+        color: #536387;
+        outline: none;
+        resize: none;
+    }
+
+    .formbold-input-radio-wrapper {
+        margin-bottom: 25px;
+    }
+
+    .formbold-radio-flex {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .formbold-radio-label {
+        font-size: 14px;
+        line-height: 24px;
+        color: #fff;
+        position: relative;
+        padding-left: 25px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .formbold-input-radio {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .formbold-radio-checkmark {
+        position: absolute;
+        top: -1px;
+        left: 0;
+        height: 18px;
+        width: 18px;
+        background-color: #ffffff;
+        border: 1px solid #dde3ec;
+        border-radius: 50%;
+    }
+
+    .formbold-radio-label .formbold-input-radio:checked~.formbold-radio-checkmark {
+        background-color: #6a64f1;
+    }
+
+    .formbold-radio-checkmark:after {
+        content: '';
+        position: absolute;
+        display: none;
+    }
+
+    .formbold-radio-label .formbold-input-radio:checked~.formbold-radio-checkmark:after {
+        display: block;
+    }
+
+    .formbold-radio-label .formbold-radio-checkmark:after {
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ffffff;
+        transform: translate(-50%, -50%);
+    }
+
+    .formbold-form-input {
+        width: 100%;
+        padding: 13px 22px;
+        border-radius: 5px;
+        border: 1px solid #dde3ec;
+        background: #ffffff;
+        font-weight: 500;
+        font-size: 16px;
+        color: #07074d;
+        outline: none;
+        resize: none;
+    }
+
+    .formbold-form-input::placeholder {
+        color: #536387;
+    }
+
+    .formbold-form-input:focus {
+        border-color: #6a64f1;
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .formbold-form-label {
+        color: #fff;
+        font-size: 14px;
+        line-height: 24px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .formbold-btn {
+        text-align: center;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 5px;
+        padding: 14px 25px;
+        border: none;
+        font-weight: 500;
+        background-color: #6a64f1;
+        color: white;
+        cursor: pointer;
+        margin-top: 25px;
+    }
+
+    .formbold-btn:hover {
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+    }
+</style>
